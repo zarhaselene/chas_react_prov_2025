@@ -5,16 +5,19 @@
 // useWindowSize ska returnera ett objekt med width, height och isMobile
 // isMobile är true om fönstret är mindre än 600px bred.
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Question5() {
+export function useWindowSize() {
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
+  const [isMobile, setIsMobile] = useState();
 
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
       setHeight(window.innerHeight);
+
+      setIsMobile(window.innerWidth < 600);
     }
 
     window.addEventListener("resize", handleResize);
@@ -23,11 +26,5 @@ export default function Question5() {
     };
   }, []);
 
-  return (
-    <div>
-      <p>Fönsterbredd: {width}px</p>
-      <p>Fönsterhöjd: {height}px</p>
-      <p>Mobile: </p>
-    </div>
-  );
+  return { width, height, isMobile };
 }
